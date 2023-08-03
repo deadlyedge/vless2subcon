@@ -75,6 +75,7 @@ https://your.vps.address:8001/vless%3A%2F%2Fbig-bad-wolf%40199.159.199.73%3A443%
 ```http
 https://username:password@your.vps.address/
 ```
+配置方法参考 https://developer.aliyun.com/article/278052
 
 ## 删除自建服务器
 

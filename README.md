@@ -69,11 +69,15 @@ https://your.vps.address:8001/vless%3A%2F%2Fbig-bad-wolf%40199.159.199.73%3A443%
 
 ## 关于安全
 
->当然如果只是按照上述简介，将订阅地址发布在公网上显然是不明智的，所以最好通过nginx之类的服务进行反代并且添加认证。
+>当然如果只是按照上述简介，将订阅地址发布在公网上显然是不明智的，所以最好通过nginx之类的服务进行反代并且添加认证。或者运行在比如NAS或者其他支持docker的内网服务器或软路由上面。
 
 所以理想的订阅地址最终大概是这个样子：
 ```http
 https://username:password@your.vps.address/
+```
+或者
+```http
+http://your.nas.local.address:8001/
 ```
 配置方法参考 https://developer.aliyun.com/article/278052
 

@@ -1,5 +1,7 @@
 this project is made for fun, and may not have any kind of support.
 
+project code at: https://github.com/deadlyedge/vless2subcon
+
 这个docker将 `vless://` 格式的自建服务器链接添加到已有的clash订阅（或者自建的subconvert docker），在支持vless的clash内核中（如meta内核）实现添加自建服务器。
 
 ## 开始之前

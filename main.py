@@ -46,19 +46,19 @@ def trans_url_to_info(url) -> dict:
 
 
 @app.get("/{urls:path}")
-async def parse_url_data(urls: str):
+async def parse_url_data(urls: str = ""):
     # 初始化
     config = read_config()
     try:
         sub_url = config["subscription_url"]
-        vless_servers = config["vless_servers"]
+        vless_servers = config["vless_servers"] if config["vless_servers"] else []
     except (AttributeError, TypeError, KeyError):
-        '''
+        """
         检查配置文件 config.yaml
         subscription_url:
         vless_servers:
-        '''
-        sub_url = 'https://my.sub.domain'
+        """
+        sub_url = "https://my.sub.domain"
         vless_servers = []
     servers = []
 
@@ -82,7 +82,8 @@ async def parse_url_data(urls: str):
         output = yaml.load(requests.get(sub_url).text, Loader=yaml.Loader)
     except requests.exceptions.ConnectionError:
         config = {
-            "subscription_url": sub_url,
+            "subscription_url": "https://my.sub.url.address",
+            # "subscription_url": sub_url,
             "vless_servers": vless_servers,
         }
         write_yaml(config, path="config.yaml")

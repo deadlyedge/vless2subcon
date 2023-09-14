@@ -93,8 +93,9 @@ async def parse_url_data(urls: str = ""):
     for index, server in enumerate(servers):
         output["proxies"].insert(index, server)
     for group in output["proxy-groups"]:
-        for server in servers:
-            group["proxies"].append(server["name"])
+        if not group['name'].endswith('节点'):
+            for server in servers:
+                group["proxies"].append(server["name"])
 
     # 保存设置
     config = {

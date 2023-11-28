@@ -26,6 +26,19 @@ def trans_url_to_info(url) -> dict:
     params = {key: value[0] for key, value in parse_qs(server_info.query).items()}
     params["path"] = "/" if "path" not in params.keys() else params["path"]
 
+    if server_info.scheme == "hysteria2":
+        return {
+            "name": server_info.fragment,
+            "type": "hysteria2",
+            "server": server_info.hostname,
+            "port": server_info.port,
+            "obfs": "salamander",
+            "obfs-password": params["obfs-password"],
+            "sni": params["sni"],
+            "skip-cert-verify": bool(params["insecure"]),
+            "password": params["auth"],
+            "alpn": ["h3"],
+        }
     return {
         "name": server_info.fragment,
         "server": server_info.hostname,
@@ -93,7 +106,7 @@ async def parse_url_data(urls: str = ""):
     for index, server in enumerate(servers):
         output["proxies"].insert(index, server)
     for group in output["proxy-groups"]:
-        if not group['name'].endswith('节点'):
+        if not group["name"].endswith("节点"):
             for server in servers:
                 group["proxies"].append(server["name"])
 

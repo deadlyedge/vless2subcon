@@ -39,23 +39,26 @@ def trans_url_to_info(url) -> dict:
             "password": params["auth"],
             "alpn": ["h3"],
         }
-    return {
-        "name": server_info.fragment,
-        "server": server_info.hostname,
-        "port": server_info.port,
-        "client-fingerprint": params["fp"],
-        "type": server_info.scheme,
-        "uuid": server_info.username,
-        "tls": (params["security"] == "tls"),
-        "tfo": False,
-        "servername": params["host"],
-        "skip-cert-verify": False,
-        "network": params["type"],
-        "ws-opts": {
-            "path": params["path"],
-            "headers": {"Host": params["host"]},
-        },
-    }
+    elif server_info.scheme == "vless":
+        return {
+            "name": server_info.fragment,
+            "server": server_info.hostname,
+            "port": server_info.port,
+            "client-fingerprint": params["fp"],
+            "type": server_info.scheme,
+            "uuid": server_info.username,
+            "tls": (params["security"] == "tls"),
+            "tfo": False,
+            "servername": params["host"],
+            "skip-cert-verify": False,
+            "network": params["type"],
+            "ws-opts": {
+                "path": params["path"],
+                "headers": {"Host": params["host"]},
+            },
+        }
+    else:
+        raise KeyError("不支持的订阅转换协议: ", server_info.scheme)
 
 
 @app.get("/{urls:path}")
